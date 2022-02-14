@@ -1,0 +1,175 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+@media only screen and (max-width: 600px) {
+  body {
+    background: #ffffff !important;
+  }
+  .logo {
+    width: 150px !important;
+    height: 100px !important;
+  }
+  .margin {
+    margin-top: 5px !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    border: 1px solid #ffffff !important;
+    border-radius: 5px !important;
+    border-top: 5px solid #000000 !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 0px !important;
+    padding-left: 25px !important;
+  }
+  .margin2 {
+    margin-top: 20px !important;
+  }
+  .navbar {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    padding-left: 0px !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  body {
+    width: 100%;
+    height: 100%;
+  }
+  .slideshow {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+
+    object-fit: cover;
+    border: 1px solid #ffffff;
+    border-radius: 0px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .card {
+    margin-left: 5px !important;
+    margin-right: 5px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: inline-block;
+  }
+}
+.margin {
+  margin-left: 35px;
+  margin-right: 35px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  border-top: 5px solid #000000;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 10px;
+  padding-left: 25px;
+}
+.margin2 {
+  margin-top: 50px;
+}
+.container-slideshow {
+  margin: 0px 35px;
+}
+.logo {
+  width: 500px;
+  height: 250px;
+}
+.navbar {
+  margin-left: 35px;
+  margin-right: 35px;
+  padding-left: 150px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: #ffffff;
+}
+.slideshow {
+  /* margin-left: 35px;
+  margin-right: 35px; */
+  object-fit: cover;
+  width: 1850px;
+  height: 600px;
+  border: 1px solid #ffffff;
+  border-radius: 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.isi {
+  margin-left: 35px;
+  margin-right: 35px;
+  border: 1px solid #ffffff;
+  padding: 10px;
+  padding-left: 25px;
+}
+.isi2 {
+  margin-top: 35px;
+  margin-left: 35px;
+  margin-right: 35px;
+  border: 1px solid #ffffff;
+  padding: 10px;
+  padding-left: 25px;
+}
+.card {
+  object-fit: cover;
+  margin-left: 35px;
+  margin-right: 35px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: inline-block;
+}
+.card2 {
+  object-fit: cover;
+  margin-top: 35px;
+  margin-left: 35px;
+  margin-right: 35px;
+  padding: 35px 35px;
+}
+.berita {
+  object-fit: cover;
+  margin: auto;
+  margin-bottom: 10px;
+}
+.runtext {
+  font-family: Brush Script MT;
+}
+.emailaddress {
+  padding-top: 30px;
+  display: inherit;
+}
+.email {
+  padding-right: 50px;
+}
+.flek {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.icon {
+  padding-bottom: 10px;
+  width: 75px;
+  height: 60px;
+}
+.icon2 {
+  padding-bottom: 10px;
+  width: 70px;
+  height: 55px;
+}
+.judul {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 1px;
+}
+.imgartikel {
+  object-fit: cover;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
