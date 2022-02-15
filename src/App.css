@@ -36,3 +36,44 @@
     transform: rotate(360deg);
   }
 }
+
+
+.box {
+  width: 100%;
+  height: 200px;
+  background: black;
+}
+
+.container-home-main {
+  margin: 55px 135px;
+}
+
+.title-home-news {
+  border-bottom: 1px solid #C4C4C4;
+  padding-bottom: 20px;
+}
+
+.no-padding {
+  padding: 0px !important;
+  margin: 0px 10px !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.kata-pembuka-news {
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 30px;
+}
+
+.rest p {
+  font-size: 14px;
+  line-height: 2.1;
+}
+
+.foto-kepala {
+  width: 100%;
+  border-radius: 10px;
+}
