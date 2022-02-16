@@ -93,3 +93,15 @@
 .nama-kpla {
   padding-top: 35px;
 }
+
+.image-size {
+  width: 386.39px;
+  height: 209.59px;
+}
+
+.costum-center-paginasi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
