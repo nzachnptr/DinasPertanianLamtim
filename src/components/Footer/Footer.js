@@ -1,4 +1,7 @@
 import React from "react";
+import { HiHome } from "react-icons/hi";
+import { BiPhoneCall } from "react-icons/bi";
+import { MdAccessTimeFilled } from "react-icons/md";
 import { Fragment } from "react/cjs/react.production.min";
 import {
   Box,
@@ -16,26 +19,30 @@ const Footer = () => {
         <Container>
           <Row>
             <Column>
-              <Heading>z</Heading>
-              <FooterLink href="#">Aim</FooterLink>
-              <FooterLink href="#">Vision</FooterLink>
-              <FooterLink href="#">Testimonials</FooterLink>
+              <Heading>Dinas Pertanian</Heading>
+              <FooterLink href="#">Home</FooterLink>
+              <FooterLink href="#">Kepala Dinas</FooterLink>
+              <FooterLink href="#">Struktur Organisasi</FooterLink>
             </Column>
             <Column>
-              <Heading>Services</Heading>
-              <FooterLink href="#">Writing</FooterLink>
-              <FooterLink href="#">Internships</FooterLink>
+              <Heading>News</Heading>
+              <FooterLink href="#">News</FooterLink>
+              <FooterLink href="#">Berita Populer</FooterLink>
               <FooterLink href="#">Coding</FooterLink>
-              <FooterLink href="#">Teaching</FooterLink>
             </Column>
             <Column>
-              <Heading>Contact Us</Heading>
-              <FooterLink href="#">Uttar Pradesh</FooterLink>
-              <FooterLink href="#">Ahemdabad</FooterLink>
-              <FooterLink href="#">Indore</FooterLink>
-              <FooterLink href="#">Mumbai</FooterLink>
+              <Heading>Tentang Kami</Heading>
+              <FooterLink href="#">Profil</FooterLink>
+              <FooterLink href="#">FAQ</FooterLink>
+              <FooterLink href="#">Lokasi</FooterLink>
             </Column>
             <Column>
+              <Heading>Hubungi Kami</Heading>
+              <FooterLink href="#"><HiHome size={30}/> Telephone/WhatsApp</FooterLink>
+              <FooterLink href="#"><BiPhoneCall size={30}/> 0813 - 8435 - 5674</FooterLink>
+              <FooterLink><MdAccessTimeFilled size={30}/> 10.00 - 17.00 WIB</FooterLink>
+            </Column>
+            {/* <Column>
               <Heading>Social Media</Heading>
               <FooterLink href="#">
                 <i className="fab fa-facebook-f">
@@ -57,7 +64,7 @@ const Footer = () => {
                   <span style={{ marginLeft: "10px" }}>Youtube</span>
                 </i>
               </FooterLink>
-            </Column>
+            </Column> */}
           </Row>
         </Container>
       </Box>
