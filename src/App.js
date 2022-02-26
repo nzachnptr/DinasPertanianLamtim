@@ -5,9 +5,11 @@ import { Fragment } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Profile from "./Profile";
 import Footer from "./components/Footer/Footer";
-import News from "./News";
 import Gallery from "./Gallery";
-// import ContactUs from "./ContactUs";
+import Contact from "./Contact";
+import DetailNews from "./DetailNews";
+import ArticleList from "./ArticleList";
+import DetailArticle from "./DetailArticle";
 
 function App() {
   return (
@@ -16,9 +18,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="about" element={<Profile />} />
-        <Route path="/news" element={<News />} />
+        <Route path="/article" element={<ArticleList />} />
         <Route path="/gallery" element={<Gallery />} />
-        {/* <Route path="/contactus" element={<ContactUs />} /> */}
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/news/:slug" element={<DetailNews />} />
+        <Route path="/article/:slug" element={<DetailArticle />} />
       </Routes>
       <Footer />
     </Fragment>

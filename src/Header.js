@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Fragment } from "react/cjs/react.production.min";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
 import { AiOutlineMail } from "react-icons/ai";
@@ -31,7 +31,10 @@ export const Header = (params) => {
       <div className="margin">
         <Row>
           <Col>
-            <img className="logo" src="Dinas Pertanian.svg"></img>
+            <img
+              className="logo"
+              src={window.location.origin + "/Dinas Pertanian.svg"}
+            ></img>
           </Col>
           <Col className="emailaddress">
             <div className="email flek">
@@ -56,36 +59,36 @@ export const Header = (params) => {
         </Row>
       </div>
       <>
-        <Navbar bg="dark" variant="dark">
-          <Nav className="me-auto">
-            {DataResponse &&
-              DataResponse.map((m, i) => {
-                console.log("DataResponse22", DataResponse);
-                return (
-                  <>
-                    {m.children.length > 0 ? (
-                      <>
-                        <NavDropdown title={m.name}>
-                          {m.children &&
-                            m.children.map((h, k) => {
-                              {
-                                console.log("Nama Children " + h.name);
-                              }
-                              return (
-                                <NavDropdown.Item eventKey="4.1">
-                                  {h.name}
-                                </NavDropdown.Item>
-                              );
-                            })}
-                        </NavDropdown>
-                      </>
-                    ) : (
-                      <Nav.Link href={m.url}>{m.name}</Nav.Link>
-                    )}
-                  </>
-                );
-              })}
-          </Nav>
+        <Navbar style={{backgroundColor: "#212529", position: "sticky"}} variant="dark" fixed="top">
+            <Container>
+              <Navbar.Brand href="#home">MENU</Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="me-auto">
+                  {DataResponse &&
+                    DataResponse.map((m, i) => {
+                      return (
+                        <>
+                          {m.children.length > 0 ? (
+                            <NavDropdown title={m.name}>
+                              {m.children &&
+                                m.children.map((h, k) => {
+                                  return (
+                                    <NavDropdown.Item eventKey="4.1">
+                                      {h.name}
+                                    </NavDropdown.Item>
+                                  );
+                                })}
+                            </NavDropdown>
+                          ) : (
+                            <Nav.Link href={m.url}>{m.name}</Nav.Link>
+                          )}
+                        </>
+                      );
+                    })}
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
         </Navbar>
       </>
     </Fragment>

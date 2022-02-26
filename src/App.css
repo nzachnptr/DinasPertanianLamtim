@@ -105,3 +105,24 @@
     align-items: center;
     height: 100%;
 }
+
+.emailaddress {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /* height: 100%; */
+}
+
+@media only screen and (max-width: 970px) {
+  .emailaddress {
+    flex-direction: column;
+}
+}
+
+html, body {
+  width: 100% !important;
+}
+
+.scroll-nav {
+  overflow-x: scroll;
+}

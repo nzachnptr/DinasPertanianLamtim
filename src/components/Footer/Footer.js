@@ -28,7 +28,7 @@ const Footer = () => {
               <Heading>News</Heading>
               <FooterLink href="#">News</FooterLink>
               <FooterLink href="#">Berita Populer</FooterLink>
-              <FooterLink href="#">Coding</FooterLink>
+              <FooterLink href="#">Dokumen</FooterLink>
             </Column>
             <Column>
               <Heading>Tentang Kami</Heading>
@@ -70,7 +70,7 @@ const Footer = () => {
       </Box>
       <footer className="text-center" style={{ marginTop: "10px"}}>
         <p>
-          &copy;{new Date().getFullYear()} Dinas Perhubungan Kabupaten Lampung
+          &copy;{new Date().getFullYear()} Dinas Pertanian Kabupaten Lampung
           Timur | All rights reserved
         </p>
       </footer>
