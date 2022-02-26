@@ -901,3 +901,8 @@ code {
   padding-top: 35px;
   padding-bottom: 5px !important;
 }
+
+.iframe-pdf {
+  width: 100%;
+  height: 500px;
+}

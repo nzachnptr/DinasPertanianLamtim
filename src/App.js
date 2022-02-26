@@ -10,6 +10,7 @@ import Contact from "./Contact";
 import DetailNews from "./DetailNews";
 import ArticleList from "./ArticleList";
 import DetailArticle from "./DetailArticle";
+import { PDFViewer } from "./PDFViewer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/news/:slug" element={<DetailNews />} />
         <Route path="/article/:slug" element={<DetailArticle />} />
+        <Route path="/pdf/:slug/:filename" element={<PDFViewer />} />
       </Routes>
       <Footer />
     </Fragment>

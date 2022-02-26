@@ -7,7 +7,8 @@ import InfiniteCarousel from "react-leaf-carousel";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "react-bootstrap";
-
+import PdfViewerComponent from "../../PDFViewerComponent";
+import { Document, Page } from 'react-pdf';
 const Main = () => {
   const [DataUmum, setDataUmum] = useState(0);
   const [DataGallery, setDataGallery] = useState(null);
@@ -15,6 +16,14 @@ const Main = () => {
   const [dataKategori, setDataKategori] = useState();
   const [DataDokumen, setDataDokumen] = useState();
   const axios = require("axios");
+
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+  
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=6")
@@ -43,7 +52,6 @@ const Main = () => {
     axios
       .get("http://adminmesuji.embuncode.com/api/news/categories/2")
       .then(function (response) {
-        console.log("console ini2: " + response.data.data);
         setDataKategori(response.data.data);
       })
       .catch(function (error) {
@@ -51,9 +59,8 @@ const Main = () => {
       });
 
     axios
-      .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=2")
+      .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8")
       .then(function (response) {
-        console.log("console ini 3: " + response.data.data.data);
         setDataDokumen(response.data.data.data);
       })
       .catch(function (error) {
@@ -174,10 +181,8 @@ const Main = () => {
           <div className="col-md-3">
             <h2 className="berita title-home-news">Kategori News</h2>
             <ListGroup as="ol" numbered>
-              {console.log("console kategori:" + dataKategori)}
               {dataKategori &&
                 dataKategori.map((item, index) => {
-                  console.log("kategori", item);
                   return (
                     <>
                       <ListGroup.Item
@@ -196,7 +201,6 @@ const Main = () => {
                 })}
             </ListGroup>
             <h2 className="berita title-home-news">Dokumen</h2>
-            {console.log("DataDokumen", DataDokumen)}
             <ListGroup>
               {DataDokumen &&
                 DataDokumen.map((item, index) => {
@@ -204,7 +208,13 @@ const Main = () => {
                     <>
                       {
                       item.dokumen_item.map((item2, index2) => {
-                        return <ListGroup.Item>{item2.dokumen_file_name}</ListGroup.Item>;
+                        return (
+                        <Fragment>
+                          <a href={'/pdf/' + item.slug + '/' + item2.dokumen_file_name.replace(/\s/g, '')}>{item2.dokumen_file_name}</a>
+                        </Fragment>
+                        )
+                        
+                        // <a href={item2.dokumen_file_data}>{item2.dokumen_file_name}</a>;
                       })}
                     </>
                   )
@@ -242,7 +252,6 @@ const Main = () => {
             scrollOnDevice={true}
           >
             {CustomDataGallery.map((item, index) => {
-              console.log("CustomDataGallery", CustomDataGallery);
               return (
                 <div>
                   <img src={item} />
