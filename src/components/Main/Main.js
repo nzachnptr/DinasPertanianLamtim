@@ -8,32 +8,50 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "react-bootstrap";
 import PdfViewerComponent from "../../PDFViewerComponent";
-import { Document, Page } from 'react-pdf';
+import { Document, Page } from "react-pdf";
+
 const Main = () => {
   const [DataUmum, setDataUmum] = useState(0);
   const [DataGallery, setDataGallery] = useState(null);
   const [CustomDataGallery, setCustomDataGallery] = useState(null);
   const [dataKategori, setDataKategori] = useState();
   const [DataDokumen, setDataDokumen] = useState();
+  const [ArtikelByKategori, setArtikelByKategori] = useState();
   const axios = require("axios");
-
+  const [getData] = useState();
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
-  
+
   useEffect(() => {
+    getDataNews();
+  }, []);
+
+  function getDataNews(slug) {
+
+    let url = '';
+
+    if (slug == null) {
+      slug = "s";
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2"
+    } else {
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=2&slug=" + slug
+    }
+    setDataUmum(null);
     axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=6")
+      .get(
+        url
+      )
       .then(function (Umum) {
         setDataUmum(Umum.data.data.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }
 
   useEffect(() => {
     axios
@@ -82,6 +100,12 @@ const Main = () => {
   useEffect(() => {}, [CustomDataGallery]);
 
   useEffect(() => {}, []);
+
+  function handleArticleChange(artikelSlug) {
+    console.log("artikelSlug", artikelSlug);
+    getDataNews(artikelSlug);
+    setArtikelByKategori(artikelSlug);
+  }
 
   return (
     <Fragment>
@@ -187,6 +211,7 @@ const Main = () => {
                     <>
                       <ListGroup.Item
                         as="li"
+                        onClick={() => handleArticleChange(item.slug)}
                         className="d-flex justify-content-between align-items-start"
                       >
                         <div className="ms-2 me-auto">
@@ -206,18 +231,26 @@ const Main = () => {
                 DataDokumen.map((item, index) => {
                   return (
                     <>
-                      {
-                      item.dokumen_item.map((item2, index2) => {
+                      {item.dokumen_item.map((item2, index2) => {
                         return (
-                        <Fragment>
-                          <a href={'/pdf/' + item.slug + '/' + item2.dokumen_file_name.replace(/\s/g, '')}>{item2.dokumen_file_name}</a>
-                        </Fragment>
-                        )
-                        
+                          <Fragment>
+                            <a
+                              href={
+                                "/pdf/" +
+                                item.slug +
+                                "/" +
+                                item2.dokumen_file_name.replace(/\s/g, "")
+                              }
+                            >
+                              {item2.dokumen_file_name}
+                            </a>
+                          </Fragment>
+                        );
+
                         // <a href={item2.dokumen_file_data}>{item2.dokumen_file_name}</a>;
                       })}
                     </>
-                  )
+                  );
                 })}
             </ListGroup>
           </div>

@@ -11,13 +11,19 @@ const ArticleList = () => {
   let items = [];
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
+  const [dataKategori, setDataKategori] = useState();
+  const [DataDokumen, setDataDokumen] = useState();
+  const [ArtikelByKategori, setArtikelByKategori] = useState();
 
   let tooglePaginate = true;
-  function getData(page) {
+  function getData(page, slug) {
+    if (slug == null) {
+      slug = ''
+    }
     setDataResponses(null);
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&page=" +
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug="+ slug +"&per_page=4&page=" +
           page
       )
       .then(function (response) {
@@ -55,6 +61,37 @@ const ArticleList = () => {
     } else {
       return value.substring(0, lengths);
     }
+  }
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://adminmesuji.embuncode.com/api/article/categories/2"
+      )
+      .then(function (response) {
+        console.log("response 55", response);
+        setDataKategori(response.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8")
+      .then(function (response) {
+        setDataDokumen(response.data.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  function handleArticleChange(artikelSlug) {
+    console.log('artikelSlug', artikelSlug)
+    getData(1, artikelSlug)
+    setArtikelByKategori(artikelSlug);
   }
 
   return (
@@ -173,58 +210,54 @@ const ArticleList = () => {
             <div className="col-md-3">
               <h2 className="berita title-home-news">Kategori Artikel</h2>
               <ListGroup as="ol" numbered>
-                <ListGroup.Item
-                  as="li"
-                  className="d-flex justify-content-between align-items-start"
-                >
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">Subheading</div>
-                    Cras justo odio
-                  </div>
-                  <Badge variant="primary" pill>
-                    14
-                  </Badge>
-                </ListGroup.Item>
-                <ListGroup.Item
-                  as="li"
-                  className="d-flex justify-content-between align-items-start"
-                >
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">Subheading</div>
-                    Cras justo odio
-                  </div>
-                  <Badge variant="primary" pill>
-                    14
-                  </Badge>
-                </ListGroup.Item>
-                <ListGroup.Item
-                  as="li"
-                  className="d-flex justify-content-between align-items-start"
-                >
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">Subheading</div>
-                    Cras justo odio
-                  </div>
-                  <Badge variant="primary" pill>
-                    14
-                  </Badge>
-                </ListGroup.Item>
+                {dataKategori &&
+                  dataKategori.map((item, index) => {
+                    console.log("test kategori" + item);
+                    return (
+                      <>
+                        <ListGroup.Item
+                          as="li"
+                          onClick={() => handleArticleChange(item.slug)}
+                          className="d-flex justify-content-between align-items-start"
+                        >
+                          <div className="ms-2 me-auto">
+                            <div className="fw-bold">{item.nama_kategori}</div>
+                          </div>
+                          <Badge variant="primary" pill>
+                            {item.artikel_count}
+                          </Badge>
+                        </ListGroup.Item>
+                      </>
+                    );
+                  })}
               </ListGroup>
               <h2 className="berita title-home-news">Dokumen</h2>
               <ListGroup>
-                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-              </ListGroup>
-              <h2 className="berita title-home-news">Jumlah Pembaca Artikel</h2>
-              <ListGroup>
-                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                {DataDokumen &&
+                  DataDokumen.map((item, index) => {
+                    return (
+                      <>
+                        {item.dokumen_item.map((item2, index2) => {
+                          return (
+                            <Fragment>
+                              <a
+                                href={
+                                  "/pdf/" +
+                                  item.slug +
+                                  "/" +
+                                  item2.dokumen_file_name.replace(/\s/g, "")
+                                }
+                              >
+                                {item2.dokumen_file_name}
+                              </a>
+                            </Fragment>
+                          );
+
+                          // <a href={item2.dokumen_file_data}>{item2.dokumen_file_name}</a>;
+                        })}
+                      </>
+                    );
+                  })}
               </ListGroup>
             </div>
           </div>
