@@ -906,3 +906,13 @@ code {
   width: 100%;
   height: 500px;
 }
+
+.kategori-list-article:hover {
+  color: #0d6efd;
+  cursor: pointer;
+}
+
+.kategori-list-article-active {
+  color: #0d6efd !important;
+  cursor: no-drop !important;
+}

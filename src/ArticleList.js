@@ -13,17 +13,21 @@ const ArticleList = () => {
   const forceUpdate = React.useCallback(() => updateState({}), []);
   const [dataKategori, setDataKategori] = useState();
   const [DataDokumen, setDataDokumen] = useState();
-  const [ArtikelByKategori, setArtikelByKategori] = useState();
+  const [ArtikelByKategori, setArtikelByKategori] = useState('');
+  const [ActiveArtikelClassname, setActiveArtikelClassname] = useState('d-flex justify-content-between align-items-start kategori-list-article');
+
+ 
 
   let tooglePaginate = true;
-  function getData(page, slug) {
-    if (slug == null) {
-      slug = ''
+  function getData(page) {
+
+    if (page == null) {
+      page = 1
     }
     setDataResponses(null);
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug="+ slug +"&per_page=4&page=" +
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug="+ ArtikelByKategori +"&per_page=4&page=" +
           page
       )
       .then(function (response) {
@@ -53,7 +57,7 @@ const ArticleList = () => {
 
   useEffect(() => {
     getData(1);
-  }, [axios]);
+  }, [ArtikelByKategori]);
 
   function handleLength(value, lengths) {
     if (value.length < lengths) {
@@ -90,8 +94,9 @@ const ArticleList = () => {
 
   function handleArticleChange(artikelSlug) {
     console.log('artikelSlug', artikelSlug)
-    getData(1, artikelSlug)
+    // getData(1, artikelSlug)
     setArtikelByKategori(artikelSlug);
+    setActiveArtikelClassname('d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active')
   }
 
   return (
@@ -215,18 +220,7 @@ const ArticleList = () => {
                     console.log("test kategori" + item);
                     return (
                       <>
-                        <ListGroup.Item
-                          as="li"
-                          onClick={() => handleArticleChange(item.slug)}
-                          className="d-flex justify-content-between align-items-start"
-                        >
-                          <div className="ms-2 me-auto">
-                            <div className="fw-bold">{item.nama_kategori}</div>
-                          </div>
-                          <Badge variant="primary" pill>
-                            {item.artikel_count}
-                          </Badge>
-                        </ListGroup.Item>
+						{(ArtikelByKategori === item.slug) ? <ListGroup.Item as="li" onClick={() => handleArticleChange(item.slug)} className="d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"><div className="ms-2 me-auto"><div className="fw-bold">{item.nama_kategori}</div></div><Badge variant="primary" pill>{item.artikel_count}</Badge></ListGroup.Item> : <ListGroup.Item as="li" onClick={() => handleArticleChange(item.slug)} className="d-flex justify-content-between align-items-start kategori-list-article"><div className="ms-2 me-auto"><div className="fw-bold">{item.nama_kategori}</div></div><Badge variant="primary" pill>{item.artikel_count}</Badge></ListGroup.Item>}
                       </>
                     );
                   })}
