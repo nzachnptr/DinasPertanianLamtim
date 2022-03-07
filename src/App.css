@@ -37,7 +37,6 @@
   }
 }
 
-
 .box {
   width: 100%;
   height: 200px;
@@ -49,7 +48,7 @@
 }
 
 .title-home-news {
-  border-bottom: 1px solid #C4C4C4;
+  border-bottom: 1px solid #c4c4c4;
   padding-bottom: 20px;
 }
 
@@ -60,23 +59,23 @@
   border: none !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
 .kata-pembuka-news {
   font-size: 16px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   margin-bottom: 30px;
 }
 
-.kata-penutup-news{
+.kata-penutup-news {
   font-size: 16px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   margin-bottom: 15px;
 }
 
-.kepala-dinas{
+.kepala-dinas {
   font-size: 18px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   margin-bottom: 15px;
 }
 
@@ -86,7 +85,8 @@
 }
 
 .foto-kepala {
-  width: 100%;
+  max-width: 500px;
+  max-height: 320px;
   border-radius: 10px;
 }
 
@@ -100,26 +100,27 @@
 }
 
 .costum-center-paginasi {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .emailaddress {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    /* height: 100%; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* height: 100%; */
 }
 
 @media only screen and (max-width: 970px) {
   .emailaddress {
     flex-direction: column;
-}
+  }
 }
 
-html, body {
+html,
+body {
   width: 100% !important;
 }
 

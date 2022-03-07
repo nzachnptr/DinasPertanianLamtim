@@ -4,6 +4,8 @@ import Main from "./components/Main/Main";
 import { Fragment } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Profile from "./Profile";
+// import Weather from "./Weather";
+// import Footer from "./components/Footer/Footer";
 import Footer from "./components/Footer/Footer";
 import Gallery from "./Gallery";
 import Contact from "./Contact";
@@ -16,6 +18,7 @@ function App() {
   return (
     <Fragment>
       <Header />
+      {/* <Weather /> */}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="about" element={<Profile />} />

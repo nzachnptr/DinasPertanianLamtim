@@ -141,6 +141,12 @@ code {
   margin-bottom: 15px;
   margin-top: 15px;
 }
+.berita1 {
+  object-fit: cover;
+  margin: auto;
+  margin-bottom: 15px;
+  margin-top: 55px !important;
+}
 .runtext {
   font-family: Brush Script MT;
 }
@@ -579,9 +585,6 @@ code {
       .text {
         padding-bottom: 35px;
       }
-      element.style {
-      }
-
       .article-dual-column .intro img {
         margin-top: 25px;
       }
@@ -660,9 +663,6 @@ code {
       margin-right: calc(-0.5 * var(--bs-gutter-x));
       margin-left: calc(-0.5 * var(--bs-gutter-x));
     }
-    element.style {
-    }
-
     @media (min-width: 768px) {
       .col-md-12 {
         flex: 0 0 auto;
@@ -713,9 +713,6 @@ code {
       border-radius: 50%;
       line-height: 60px;
     }
-    element.style {
-    }
-
     @media (min-width: 1200px) {
       .container,
       .container-lg,
@@ -887,7 +884,7 @@ code {
   margin: 5px 5px;
 }
 .icon-c {
-  color: #6c757d;
+  color: #212529;
   padding-bottom: 3px;
   width: 50px;
   height: 50px;
@@ -915,4 +912,8 @@ code {
 .kategori-list-article-active {
   color: #0d6efd !important;
   cursor: no-drop !important;
+}
+
+.contact {
+  padding-top: 25px;
 }

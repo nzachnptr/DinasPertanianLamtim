@@ -1,9 +1,25 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { RiWhatsappFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { AiFillFacebook, AiFillInstagram, AiFillYoutube } from "react-icons/ai";
 
 const Contact = () => {
+  const [DataResponse, setDataResponses] = useState(0);
+  const axios = require("axios");
+
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/instansi/detail/8")
+      .then(function (response) {
+        setDataResponses(response.data.data); 
+      console.log('first-saya', response.data.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div>
       <meta charSet="utf-8" />
@@ -14,38 +30,34 @@ const Contact = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-          <h2 className="text-center">Kontak Kami</h2>
+            <h2 className="text-center contact">Kontak Kami</h2>
             <div className="social-icons">
-            <a href="#" className="container-icon">
-                <RiWhatsappFill size={35} className="icon-c" />
-              </a>
-              <a href="#" className="container-icon">
+
+              <a href={DataResponse.email} className="container-icon">
                 <MdEmail size={35} className="icon-c" />
               </a>
-              <a href="#" className="container-icon">
+              <a href={DataResponse.youtube} className="container-icon">
                 <AiFillYoutube size={35} className="icon-c" />
               </a>
-              <a href="#" className="container-icon">
+              <a href={DataResponse.facebook} className="container-icon">
                 <AiFillFacebook size={35} className="icon-c" />
               </a>
-              <a href="#" className="container-icon">
+              <a href={DataResponse.instagram} className="container-icon">
                 <AiFillInstagram size={35} className="icon-c" />
               </a>
               <section className="map-clean">
                 <div className="container">
                   <div className="intro">
-                    <h2 className="text-center">Location </h2>
+                    <h2 className="text-center">Temukan Kami </h2>
                     <p className="text-center">
-                      Nunc luctus in metus eget fringilla. Aliquam sed justo
-                      ligula. Vestibulum nibh erat, pellentesque ut laoreet
-                      vitae.{" "}
+                    XG3F+F88, Sukadana Ilir, Sukadana, Kabupaten Lampung Timur, Lampung 34194{" "}
                     </p>
                   </div>
                 </div>
                 <iframe
                   allowFullScreen
                   frameBorder={0}
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63593.80124592769!2d105.26000675613997!3d-5.00383420721576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4090a2a53cc503%3A0x61af279ae7304292!2sDinas%20Pertanian%20Dan%20Pangan!5e0!3m2!1sen!2sid!4v1645245682313!5m2!1sen!2sid"
+                  src={DataResponse.google_map}
                   width="100%"
                   height={450}
                 />

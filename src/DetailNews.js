@@ -87,7 +87,7 @@ const DetailNews = () => {
                         <a href="#">{DataResponse.news_category_id}</a>
                       </li>
                     </ul>
-                    <p>Jumlah Pembaca</p>
+                    {/* <p>Jumlah Pembaca</p>
                     <ul>
                       <ListGroup as="ol" numbered>
                         {console.log("console read:" + dataRead)}
@@ -112,7 +112,7 @@ const DetailNews = () => {
                             );
                           })}
                       </ListGroup>
-                    </ul>
+                    </ul> */}
                   </div>
                 </div>
                 <div className="col-md-10 col-lg-7 offset-md-1 offset-lg-0">

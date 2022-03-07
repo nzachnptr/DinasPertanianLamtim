@@ -4,6 +4,13 @@ import Pagination from "react-bootstrap/Pagination";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Badge } from "react-bootstrap";
+import moment from "moment-with-locales-es6";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
 
 const ArticleList = () => {
   const [Items, setItems] = useState([]);
@@ -13,21 +20,22 @@ const ArticleList = () => {
   const forceUpdate = React.useCallback(() => updateState({}), []);
   const [dataKategori, setDataKategori] = useState();
   const [DataDokumen, setDataDokumen] = useState();
-  const [ArtikelByKategori, setArtikelByKategori] = useState('');
-  const [ActiveArtikelClassname, setActiveArtikelClassname] = useState('d-flex justify-content-between align-items-start kategori-list-article');
-
- 
+  const [ArtikelByKategori, setArtikelByKategori] = useState("");
+  const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(
+    "d-flex justify-content-between align-items-start kategori-list-article"
+  );
 
   let tooglePaginate = true;
   function getData(page) {
-
     if (page == null) {
-      page = 1
+      page = 1;
     }
     setDataResponses(null);
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug="+ ArtikelByKategori +"&per_page=4&page=" +
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug=" +
+          ArtikelByKategori +
+          "&per_page=4&page=" +
           page
       )
       .then(function (response) {
@@ -69,9 +77,7 @@ const ArticleList = () => {
 
   useEffect(() => {
     axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/article/categories/2"
-      )
+      .get("http://adminmesuji.embuncode.com/api/article/categories/2")
       .then(function (response) {
         console.log("response 55", response);
         setDataKategori(response.data.data);
@@ -93,10 +99,12 @@ const ArticleList = () => {
   }, []);
 
   function handleArticleChange(artikelSlug) {
-    console.log('artikelSlug', artikelSlug)
+    console.log("artikelSlug", artikelSlug);
     // getData(1, artikelSlug)
     setArtikelByKategori(artikelSlug);
-    setActiveArtikelClassname('d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active')
+    setActiveArtikelClassname(
+      "d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"
+    );
   }
 
   return (
@@ -122,24 +130,14 @@ const ArticleList = () => {
                             />
                             <ul className="details">
                               <li className="author">
-                                <a href="#">John Doe</a>
+                                <a>{item.created_by}e</a>
                               </li>
-                              <li className="date">Aug. 24, 2015</li>
-                              <li className="tags">
-                                <ul>
-                                  <li>
-                                    <a href="#">Learn</a>
-                                  </li>
-                                  <li>
-                                    <a href="#">Code</a>
-                                  </li>
-                                  <li>
-                                    <a href="#">HTML</a>
-                                  </li>
-                                  <li>
-                                    <a href="#">CSS</a>
-                                  </li>
-                                </ul>
+                              <li className="date">
+                                {""}
+                                {
+                                  (moment.locale("id-ID"),
+                                  moment(item.created_at).format("ll"))
+                                }
                               </li>
                             </ul>
                           </div>
@@ -172,22 +170,13 @@ const ArticleList = () => {
                             />
                             <ul className="details">
                               <li className="author">
-                                <a href="#">Jane Doe</a>
+                                <a>{item.created_by}</a>
                               </li>
-                              <li className="date">July. 15, 2015</li>
-                              <li className="tags">
-                                <ul>
-                                  <li>
-                                    <a href="#">Learn</a>
-                                  </li>
-                                  <li>
-                                    <a href="#">Code</a>
-                                  </li>
-                                  <li>
-                                    <a href="#">JavaScript</a>
-                                  </li>
-                                </ul>
-                              </li>
+                              <li className="date">{""}
+                                {
+                                  (moment.locale("id-ID"),
+                                  moment(item.created_at).format("ll"))
+                                }</li>
                             </ul>
                           </div>
                           <div className="description">
@@ -220,39 +209,110 @@ const ArticleList = () => {
                     console.log("test kategori" + item);
                     return (
                       <>
-						{(ArtikelByKategori === item.slug) ? <ListGroup.Item as="li" onClick={() => handleArticleChange(item.slug)} className="d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"><div className="ms-2 me-auto"><div className="fw-bold">{item.nama_kategori}</div></div><Badge variant="primary" pill>{item.artikel_count}</Badge></ListGroup.Item> : <ListGroup.Item as="li" onClick={() => handleArticleChange(item.slug)} className="d-flex justify-content-between align-items-start kategori-list-article"><div className="ms-2 me-auto"><div className="fw-bold">{item.nama_kategori}</div></div><Badge variant="primary" pill>{item.artikel_count}</Badge></ListGroup.Item>}
+                        {ArtikelByKategori === item.slug ? (
+                          <ListGroup.Item
+                            as="li"
+                            onClick={() => handleArticleChange(item.slug)}
+                            className="d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"
+                          >
+                            <div className="ms-2 me-auto">
+                              <div className="fw-bold">
+                                {item.nama_kategori}
+                              </div>
+                            </div>
+                            <Badge variant="primary" pill>
+                              {item.artikel_count}
+                            </Badge>
+                          </ListGroup.Item>
+                        ) : (
+                          <ListGroup.Item
+                            as="li"
+                            onClick={() => handleArticleChange(item.slug)}
+                            className="d-flex justify-content-between align-items-start kategori-list-article"
+                          >
+                            <div className="ms-2 me-auto">
+                              <div className="fw-bold">
+                                {item.nama_kategori}
+                              </div>
+                            </div>
+                            <Badge variant="primary" pill>
+                              {item.artikel_count}
+                            </Badge>
+                          </ListGroup.Item>
+                        )}
                       </>
                     );
                   })}
               </ListGroup>
-              <h2 className="berita title-home-news">Dokumen</h2>
-              <ListGroup>
-                {DataDokumen &&
-                  DataDokumen.map((item, index) => {
-                    return (
-                      <>
-                        {item.dokumen_item.map((item2, index2) => {
-                          return (
-                            <Fragment>
-                              <a
-                                href={
-                                  "/pdf/" +
-                                  item.slug +
-                                  "/" +
-                                  item2.dokumen_file_name.replace(/\s/g, "")
+              <h2 className="berita1 title-home-news">Dokumen</h2>
+              <List
+              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            >
+              {DataDokumen &&
+                DataDokumen.map((item, index) => {
+                  return (
+                    <>
+                      {item.dokumen_item.map((item2, index2) => {
+                        return (
+                          <Fragment>
+                            <ListItem alignItems="flex-start">
+                              <ListItemAvatar>
+                              <Avatar
+                                  alt=" "
+                                  src="./pdf.png"
+                                />
+                              </ListItemAvatar>
+                              <ListItemText
+                                primary={
+                                  <a
+                                    href={
+                                      "/pdf/" +
+                                      item.slug +
+                                      "/" +
+                                      item2.dokumen_file_name.replace(/\s/g, "")
+                                    }
+                                  >
+                                    {item2.dokumen_file_name}
+                                  </a>
                                 }
-                              >
-                                {item2.dokumen_file_name}
-                              </a>
-                            </Fragment>
-                          );
+                                secondary={
+                                  <React.Fragment>
+                                    <Typography
+                                      sx={{ display: "inline" }}
+                                      component="span"
+                                      variant="body2"
+                                      color="text.primary"
+                                    >
+                                      {item2.created_by}
+                                    </Typography>
+                                    {
+                                      <p>
+                                        Created On:{" "}
+                                        {
+                                          (moment.locale("id-ID"),
+                                          moment(item.created_at).format("ll"))
+                                        }
+                                      </p>
+                                    }
+                                  </React.Fragment>
+                                }
+                              />
+                            </ListItem>
+                          </Fragment>
+                        );
 
-                          // <a href={item2.dokumen_file_data}>{item2.dokumen_file_name}</a>;
-                        })}
-                      </>
-                    );
-                  })}
-              </ListGroup>
+                        // <a href={item2.dokumen_file_data}>{item2.dokumen_file_name}</a>;
+                      })}
+                    </>
+                  );
+                })}
+              </List>
+              <ListGroup>
+              <div className="col-md-12">
+                <h2 className="berita title-home-news">Temukan Artikel</h2>
+                <input className="form-control" type="text" placeholder="Ketikan sesuatu ..." aria-label="Search" />
+              </div>
+            </ListGroup>
             </div>
           </div>
         </div>
