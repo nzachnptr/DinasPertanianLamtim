@@ -11,12 +11,25 @@ import { SiGooglemaps } from "react-icons/si";
 
 export const Header = (params) => {
   const [DataResponse, setDataResponses] = useState(0);
+  const [DataHeader, setDataHeader] = useState([]);
   const axios = require("axios");
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/menus?instansi_id=8")
       .then(function (response) {
         setDataResponses(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/instansi/detail/8")
+      .then(function (header) {
+        setDataHeader(header.data.data);
+        console.log("console header: " + header.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -31,10 +44,14 @@ export const Header = (params) => {
       <div className="margin">
         <Row>
           <Col>
-            <img
-              className="logo"
-              src={window.location.origin + "/Dinas Pertanian.svg"}
-            ></img>
+            <div className="logo-full">
+              <div className="logo-header">
+                <img className="logo" src={DataHeader.logo_instansi}></img>
+              </div>
+              <h1 className="text-logo">
+                {DataHeader.nama_instansi} Kabupaten Lampung Timur
+              </h1>
+            </div>
           </Col>
           <Col className="emailaddress">
             <div className="email flek">
@@ -42,7 +59,7 @@ export const Header = (params) => {
               <div className="textbox">
                 <span style={{ fontWeight: "700" }}> Email</span>
                 <p a href="#email">
-                  distanikab.lamtim@gmail.com
+                  {DataHeader.email}
                 </p>
               </div>
             </div>
@@ -51,7 +68,7 @@ export const Header = (params) => {
               <div className="textbox">
                 <span style={{ fontWeight: "700" }}> Alamat</span>
                 <p a href="alamat">
-                  Jl.Manggis Purnawirawan IIV No.4 Lampung Timur
+                  {DataHeader.alamat}
                 </p>
               </div>
             </div>
@@ -59,36 +76,87 @@ export const Header = (params) => {
         </Row>
       </div>
       <>
-        <Navbar style={{backgroundColor: "#212529", position: "sticky"}} variant="dark" fixed="top">
-            <Container>
-              <Navbar.Brand href="#home">MENU</Navbar.Brand>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-              <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="me-auto">
-                  {DataResponse &&
-                    DataResponse.map((m, i) => {
-                      return (
-                        <>
-                          {m.children.length > 0 ? (
+        <Navbar
+          style={{ backgroundColor: "#212529", position: "sticky" }}
+          variant="dark"
+          fixed="top"
+          expand="lg"
+        >
+          <Container>
+            <Navbar.Brand href="#home">MENU</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="me-auto">
+                {DataResponse &&
+                  DataResponse.map((m, i) => {
+                    return (
+                      <>
+                        {m.children.length > 0 ? (
+                          <>
                             <NavDropdown title={m.name}>
                               {m.children &&
                                 m.children.map((h, k) => {
+                                  {
+                                    console.log("Nama Children " + h.name);
+                                  }
                                   return (
-                                    <NavDropdown.Item eventKey="4.1">
-                                      {h.name}
-                                    </NavDropdown.Item>
+                                    <>
+                                      {h.children.length > 0 ? (
+                                        <>
+                                          <NavDropdown title={h.name}>
+                                            {h.children &&
+                                              h.children.map((j, o) => {
+                                                return (
+                                                  <>
+                                                    {j.children.length > 0 ? (
+                                                      <>
+                                                        <NavDropdown
+                                                          title={j.name}
+                                                        >
+                                                          {j.children &&
+                                                            j.children.map(
+                                                              (k, l) => {
+                                                                return (
+                                                                  <Nav.Link
+                                                                    eventKey="4.1"
+                                                                    href={k.url}
+                                                                  >
+                                                                    {k.name}
+                                                                  </Nav.Link>
+                                                                );
+                                                              }
+                                                            )}
+                                                        </NavDropdown>
+                                                      </>
+                                                    ) : (
+                                                      <Nav.Link href={j.url}>
+                                                        {j.name}
+                                                      </Nav.Link>
+                                                    )}
+                                                  </>
+                                                );
+                                              })}
+                                          </NavDropdown>
+                                        </>
+                                      ) : (
+                                        <Nav.Link href={h.url}>
+                                          {h.name}
+                                        </Nav.Link>
+                                      )}
+                                    </>
                                   );
                                 })}
                             </NavDropdown>
-                          ) : (
-                            <Nav.Link href={m.url}>{m.name}</Nav.Link>
-                          )}
-                        </>
-                      );
-                    })}
-                </Nav>
-              </Navbar.Collapse>
-            </Container>
+                          </>
+                        ) : (
+                          <Nav.Link href={m.url}>{m.name}</Nav.Link>
+                        )}
+                      </>
+                    );
+                  })}
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
         </Navbar>
       </>
     </Fragment>

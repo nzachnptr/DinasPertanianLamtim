@@ -81,8 +81,8 @@ code {
   margin: 0px 35px;
 }
 .logo {
-  width: 500px;
-  height: 250px;
+  width: 100%;
+  height: 100%;
 }
 .navbar {
   margin-left: 35px;
@@ -916,4 +916,22 @@ code {
 
 .contact {
   padding-top: 25px;
+}
+div#root {
+  overflow: hidden;
+}
+.logo-header {
+  max-width: 150px;
+  max-height: 150px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+.logo-full {
+  display: flex;
+}
+.text-logo {
+  transform: translateY(30%);
+}
+.dropdown-menu{
+  background-color: #212529 !important;
 }

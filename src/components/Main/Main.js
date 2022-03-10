@@ -38,7 +38,7 @@ const Main = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=3"
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=8&per_page=3"
       )
       .then(function (repsonse) {
         setDataArticle(repsonse.data.data.data);

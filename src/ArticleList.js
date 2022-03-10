@@ -33,7 +33,7 @@ const ArticleList = () => {
     setDataResponses(null);
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug=" +
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=8&slug=" +
           ArtikelByKategori +
           "&per_page=4&page=" +
           page
@@ -77,7 +77,7 @@ const ArticleList = () => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/article/categories/2")
+      .get("http://adminmesuji.embuncode.com/api/article/categories/8")
       .then(function (response) {
         console.log("response 55", response);
         setDataKategori(response.data.data);
