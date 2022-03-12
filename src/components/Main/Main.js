@@ -52,16 +52,38 @@ const Main = () => {
     getDataNews();
   }, []);
 
-  function getDataNews(slug) {
+  // function gettingData(page, slug, title) {
+  //   let urlTitle = "";
+  //   if (title != null) {
+  //     urlTitle = "&title=" + title;
+  //   } else {
+  //     urlTitle = "";
+  //   }
+  //   setDataTerbaru(null);
+  //   let url = "";
+  //   if (slug == null) {
+  //     url = "http://adminmesuji.embuncode.com/api/news?instansi_id=8" + urlTitle + "&per_page=4&page=" + page; //clue
+  //   } else {
+  //     url = "http://adminmesuji.embuncode.com/api/news?instansi_id=8" + urlTitle + "&per_page=4&slug=" + slug + "&page=" + page; //clue
+  //   }
+
+  function getDataNews(slug,title) {
+    let urlTitle = "";
+    if (title != null) {
+      urlTitle = "&title=" + title;
+    } else {
+      urlTitle = "";
+    }
+
     let url = "";
 
     if (slug == null) {
-      slug = "s";
+      // slug = "s";
       url =
-        "http://adminmesuji.embuncode.com/api/news?instansi_id=8&per_page=6";
+        "http://adminmesuji.embuncode.com/api/news?instansi_id=8"+ urlTitle +"&per_page=6";
     } else {
       url =
-        "http://adminmesuji.embuncode.com/api/news?instansi_id=8&slug=" + slug;
+        "http://adminmesuji.embuncode.com/api/news?instansi_id=8"+urlTitle +"&slug=" + slug;
     }
     setDataUmum(null);
     axios
@@ -73,7 +95,13 @@ const Main = () => {
         console.log(error);
       });
   }
-
+  function handleSearchChange(value) {
+    console.log("value", value.target.value);
+    if (value.key === "Enter") {
+      console.log("do validate");
+      getDataNews(null,value.target.value);
+    }
+  }
   useEffect(() => {
     axios
       .get(
@@ -138,6 +166,14 @@ const Main = () => {
     setArtikelByKategori(artikelSlug);
   }
 
+  // function handleSearchChange(value) {
+  //   console.log("value", value.target.value);
+  //   if (value.key === "Enter") {
+  //     console.log("do validate");
+  //     gettingData(1, null, value.target.value);
+  //   }
+  // }
+
   return (
     <Fragment>
       <div className="container-slideshow">
@@ -182,7 +218,7 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row content-home">
           <div className="col-md-9">
             <h2 className="berita title-home-news">Berita Terbaru</h2>
             <div className="row">
@@ -191,9 +227,30 @@ const Main = () => {
                   return (
                     <>
                       <>
-                        <div className="col-md-4">
+                        <div className="col-lg-12 col-xl-4">
                           <Card className="isi no-padding">
                             <Card.Body>
+                              <div className="border-meta">
+                                <Link to="#" className="read-more-size">
+                                  <i className="fa-solid fa-calendar-days"></i>
+                                  {moment(item.created_at).format(
+                                    "Do MMMM  YYYY"
+                                  )}
+                                </Link>
+                                <Link to="#" className="read-more-size">
+                                  <i className="fa-solid fa-user"></i>
+                                  {item.created_by}
+                                </Link>
+
+                                <Link to="#" className="read-more-size x-eyes">
+                                  <i className="fa-solid fa-eye"></i>
+                                  {item.total_hit}
+                                </Link>
+                                <Link to="#" className="read-more-size">
+                                  <i className="fa-solid fa-tags"></i>
+                                  {item.news_category_id}
+                                </Link>
+                              </div>
                               <Card.Img
                                 variant="top"
                                 className="radius-10"
@@ -313,17 +370,21 @@ const Main = () => {
             </List>
             <ListGroup>
               <div className="col-md-15">
-                <h2 className="berita title-home-news">Temukan News</h2>
+                <h2 className="berita title-home-news">Temukan Berita</h2>
                 <input
+                  onKeyDown={handleSearchChange}
                   className="form-control"
                   type="text"
                   placeholder="Ketikan sesuatu ..."
-                  aria-label="Search"
+                 
                 />
               </div>
             </ListGroup>
           </div>
         </div>
+        <div className="row content-gallery">
+
+
         <h2 className="berita title-home-news">Gallery</h2>
         {CustomDataGallery != null ? (
           <InfiniteCarousel
@@ -365,6 +426,7 @@ const Main = () => {
             <LinearProgress />
           </Box>
         )}
+        </div>
       </div>
     </Fragment>
   );

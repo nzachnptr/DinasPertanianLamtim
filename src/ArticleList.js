@@ -21,34 +21,30 @@ const ArticleList = () => {
   const [dataKategori, setDataKategori] = useState();
   const [DataDokumen, setDataDokumen] = useState();
   const [ArtikelByKategori, setArtikelByKategori] = useState("");
-  const [ActiveArtikelClassname, setActiveArtikelClassname] = useState(
-    "d-flex justify-content-between align-items-start kategori-list-article"
-  );
+  const [ActiveArtikelClassname, setActiveArtikelClassname] = useState("d-flex justify-content-between align-items-start kategori-list-article");
 
   let tooglePaginate = true;
-  function getData(page) {
+  
+  function getData(page, title) {
     if (page == null) {
       page = 1;
     }
+    let urlTitle = "";
+    if (title != null) {
+      urlTitle = "&title=" + title;
+    } else {
+      urlTitle = "";
+    }
     setDataResponses(null);
     axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=8&slug=" +
-          ArtikelByKategori +
-          "&per_page=4&page=" +
-          page
-      )
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=8" + urlTitle +"&slug=" + ArtikelByKategori + "&per_page=4&page=" + page)
       .then(function (response) {
         setDataResponses(response.data.data.data);
         // if (tooglePaginate) {
         items = [];
         for (let number = 1; number <= response.data.data.last_page; number++) {
           items.push(
-            <Pagination.Item
-              onClick={() => getData(number)}
-              key={number}
-              active={number === response.data.data.current_page}
-            >
+            <Pagination.Item onClick={() => getData(number)} key={number} active={number === response.data.data.current_page}>
               {number}
             </Pagination.Item>
           );
@@ -62,7 +58,18 @@ const ArticleList = () => {
         console.log(error);
       });
   }
-
+  function handleSearchChange(value) {
+    console.log("value", value.target.value);
+    if (value.key === "Enter") {
+      // console.log("do validate");
+      if (value.target.value != "") {
+        getData(null, value.target.value);
+        
+      } else {
+        getData(null,null);
+      }
+    }
+  }
   useEffect(() => {
     getData(1);
   }, [ArtikelByKategori]);
@@ -102,9 +109,7 @@ const ArticleList = () => {
     console.log("artikelSlug", artikelSlug);
     // getData(1, artikelSlug)
     setArtikelByKategori(artikelSlug);
-    setActiveArtikelClassname(
-      "d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"
-    );
+    setActiveArtikelClassname("d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active");
   }
 
   return (
@@ -112,32 +117,26 @@ const ArticleList = () => {
       <Container>
         <div>
           <div className="row">
-            <div className="col-md-9">
-              <h2 className="berita title-home-news">Artikel</h2>
+            <div className="col-md-8">
+              <h2 className="berita title-home-news">Artikel Terbaru</h2>
               <div className="row">
-                {DataResponse != null
+                {console.log('ferdi isinya apa',DataResponse)}
+                {DataResponse != null && DataResponse.length != 0 //clue
                   ? DataResponse.map((item, index) => {
                       return index % 2 === 0 ? (
-                        <div
-                          style={{ paddingLeft: "0px" }}
-                          className="blog-card"
-                        >
+                        <div style={{ paddingLeft: "0px" }} className="blog-card">
                           <div className="meta">
-                            <img
-                              className="image-size"
-                              src={item.image_file_data}
-                              alt=""
-                            />
+                            <img className="image-size" src={item.image_file_data} alt="" />
                             <ul className="details">
                               <li className="author">
-                                <a>{item.created_by}e</a>
+                                <a>{item.created_by}</a>
+                              </li>
+                              <li>
+                                <a>{item.nama_kategori}</a>
                               </li>
                               <li className="date">
                                 {""}
-                                {
-                                  (moment.locale("id-ID"),
-                                  moment(item.created_at).format("ll"))
-                                }
+                                {(moment.locale("id-ID"), moment(item.created_at).format("ll"))}
                               </li>
                             </ul>
                           </div>
@@ -158,25 +157,17 @@ const ArticleList = () => {
                           </div>
                         </div>
                       ) : (
-                        <div
-                          style={{ paddingLeft: "0px" }}
-                          className="blog-card alt"
-                        >
+                        <div style={{ paddingLeft: "0px" }} className="blog-card alt">
                           <div className="meta">
-                            <img
-                              className="image-size"
-                              src={item.image_file_data}
-                              alt=""
-                            />
+                            <img className="image-size" src={item.image_file_data} alt="" />
                             <ul className="details">
                               <li className="author">
                                 <a>{item.created_by}</a>
                               </li>
-                              <li className="date">{""}
-                                {
-                                  (moment.locale("id-ID"),
-                                  moment(item.created_at).format("ll"))
-                                }</li>
+                              <li className="date">
+                                {""}
+                                {(moment.locale("id-ID"), moment(item.created_at).format("ll"))}
+                              </li>
                             </ul>
                           </div>
                           <div className="description">
@@ -201,7 +192,7 @@ const ArticleList = () => {
                 {/*  */}
               </div>
             </div>
-            <div className="col-md-3">
+            <div className="col-md-4">
               <h2 className="berita title-home-news">Kategori Artikel</h2>
               <ListGroup as="ol" numbered>
                 {dataKategori &&
@@ -210,30 +201,18 @@ const ArticleList = () => {
                     return (
                       <>
                         {ArtikelByKategori === item.slug ? (
-                          <ListGroup.Item
-                            as="li"
-                            onClick={() => handleArticleChange(item.slug)}
-                            className="d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active"
-                          >
+                          <ListGroup.Item as="li" onClick={() => handleArticleChange(item.slug)} className="d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active">
                             <div className="ms-2 me-auto">
-                              <div className="fw-bold">
-                                {item.nama_kategori}
-                              </div>
+                              <div className="fw-bold">{item.nama_kategori}</div>
                             </div>
                             <Badge variant="primary" pill>
                               {item.artikel_count}
                             </Badge>
                           </ListGroup.Item>
                         ) : (
-                          <ListGroup.Item
-                            as="li"
-                            onClick={() => handleArticleChange(item.slug)}
-                            className="d-flex justify-content-between align-items-start kategori-list-article"
-                          >
+                          <ListGroup.Item as="li" onClick={() => handleArticleChange(item.slug)} className="d-flex justify-content-between align-items-start kategori-list-article">
                             <div className="ms-2 me-auto">
-                              <div className="fw-bold">
-                                {item.nama_kategori}
-                              </div>
+                              <div className="fw-bold">{item.nama_kategori}</div>
                             </div>
                             <Badge variant="primary" pill>
                               {item.artikel_count}
@@ -246,73 +225,50 @@ const ArticleList = () => {
               </ListGroup>
               <h2 className="berita1 title-home-news">Dokumen</h2>
               <List
-              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-            >
-              {DataDokumen &&
-                DataDokumen.map((item, index) => {
-                  return (
-                    <>
-                      {item.dokumen_item.map((item2, index2) => {
-                        return (
-                          <Fragment>
-                            <ListItem alignItems="flex-start">
-                              <ListItemAvatar>
-                              <Avatar
-                                  alt=" "
-                                  src="./pdf.png"
+                sx={{
+                  width: "100%",
+                  maxWidth: 360,
+                  bgcolor: "background.paper",
+                }}
+              >
+                {DataDokumen &&
+                  DataDokumen.map((item, index) => {
+                    return (
+                      <>
+                        {item.dokumen_item.map((item2, index2) => {
+                          return (
+                            <Fragment>
+                              <ListItem alignItems="flex-start">
+                                <ListItemAvatar>
+                                  <Avatar alt=" " src="./pdf.png" />
+                                </ListItemAvatar>
+                                <ListItemText
+                                  primary={<a href={"/pdf/" + item.slug + "/" + item2.dokumen_file_name.replace(/\s/g, "")}>{item2.dokumen_file_name}</a>}
+                                  secondary={
+                                    <React.Fragment>
+                                      <Typography sx={{ display: "inline" }} component="span" variant="body2" color="text.primary">
+                                        {item2.created_by}
+                                      </Typography>
+                                      {<p>Created On: {(moment.locale("id-ID"), moment(item.created_at).format("ll"))}</p>}
+                                    </React.Fragment>
+                                  }
                                 />
-                              </ListItemAvatar>
-                              <ListItemText
-                                primary={
-                                  <a
-                                    href={
-                                      "/pdf/" +
-                                      item.slug +
-                                      "/" +
-                                      item2.dokumen_file_name.replace(/\s/g, "")
-                                    }
-                                  >
-                                    {item2.dokumen_file_name}
-                                  </a>
-                                }
-                                secondary={
-                                  <React.Fragment>
-                                    <Typography
-                                      sx={{ display: "inline" }}
-                                      component="span"
-                                      variant="body2"
-                                      color="text.primary"
-                                    >
-                                      {item2.created_by}
-                                    </Typography>
-                                    {
-                                      <p>
-                                        Created On:{" "}
-                                        {
-                                          (moment.locale("id-ID"),
-                                          moment(item.created_at).format("ll"))
-                                        }
-                                      </p>
-                                    }
-                                  </React.Fragment>
-                                }
-                              />
-                            </ListItem>
-                          </Fragment>
-                        );
+                              </ListItem>
+                            </Fragment>
+                          );
 
-                        // <a href={item2.dokumen_file_data}>{item2.dokumen_file_name}</a>;
-                      })}
-                    </>
-                  );
-                })}
+                          // <a href={item2.dokumen_file_data}>{item2.dokumen_file_name}</a>;
+                        })}
+                      </>
+                    );
+                  })}
               </List>
               <ListGroup>
-              <div className="col-md-12">
-                <h2 className="berita title-home-news">Temukan Artikel</h2>
-                <input className="form-control" type="text" placeholder="Ketikan sesuatu ..." aria-label="Search" />
-              </div>
-            </ListGroup>
+                <div className="col-md-12">
+                  <h2 className="berita title-home-news">Temukan Artikel</h2>
+                  <input onKeyDown={handleSearchChange} className="form-control" type="text" placeholder="Ketikan sesuatu ..."  />
+                </div>
+              </ListGroup>
             </div>
           </div>
         </div>

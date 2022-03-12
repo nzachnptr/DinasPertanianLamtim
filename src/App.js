@@ -26,8 +26,8 @@ function App() {
         <Route path="/news/:slug" element={<DetailNews />} />
         <Route path="/article/:slug" element={<DetailArticle />} />
         <Route path="/pdf/:slug/:filename" element={<PDFViewer />} />
+        <Route path="/static/:id" element={<Static />} />
       </Routes>
-      {/* <Static /> */}
       <Footer />
     </Fragment>
   );

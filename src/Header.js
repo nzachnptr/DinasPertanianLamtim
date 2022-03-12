@@ -83,7 +83,7 @@ export const Header = (params) => {
           expand="lg"
         >
           <Container>
-            <Navbar.Brand href="#home">MENU</Navbar.Brand>
+            <Navbar.Brand href="#home"></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
@@ -128,29 +128,34 @@ export const Header = (params) => {
                                                             )}
                                                         </NavDropdown>
                                                       </>
-                                                    ) : (
-                                                      <Nav.Link href={j.url}>
-                                                        {j.name}
-                                                      </Nav.Link>
-                                                    )}
+                                                    ) :  m.static_page != null ? (
+                                                      <Nav.Link href={'static/' + j.static_page}>{j.name}</Nav.Link>
+                                                      ) : (
+                                                        <Nav.Link href={j.url}>{j.name}</Nav.Link>
+                                                    )
+                                                    }
                                                   </>
                                                 );
                                               })}
                                           </NavDropdown>
                                         </>
-                                      ) : (
-                                        <Nav.Link href={h.url}>
-                                          {h.name}
-                                        </Nav.Link>
-                                      )}
+                                      ) :  m.static_page != null ? (
+                                        <Nav.Link href={'static/' + h.static_page}>{h.name}</Nav.Link>
+                                        ) : (
+                                          <Nav.Link href={h.url}>{h.name}</Nav.Link>
+                                      )
+                                      }
                                     </>
                                   );
                                 })}
                             </NavDropdown>
                           </>
-                        ) : (
-                          <Nav.Link href={m.url}>{m.name}</Nav.Link>
-                        )}
+                        ) :  m.static_page != null ? (
+                          <Nav.Link href={'static/' + m.static_page}>{m.name}</Nav.Link>
+                          ) : (
+                            <Nav.Link href={m.url}>{m.name}</Nav.Link>
+                        )
+                      }
                       </>
                     );
                   })}

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { RiWhatsappFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { AiFillFacebook, AiFillInstagram, AiFillYoutube } from "react-icons/ai";
+import fixedUrl from "react";
+import { browserName } from "react-device-detect";
 
 const Contact = () => {
   const [DataResponse, setDataResponses] = useState(0);
@@ -19,6 +21,32 @@ const Contact = () => {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    const getIPAddress = async () => {
+      const res = await axios.get("https://geolocation-db.com/json/");
+      // console.log('IP' + res.data);
+      // setIP(res.data.IPv4)
+
+      axios
+        .post(
+          "http://adminmesuji.embuncode.com/api/news/hit?news_id=" +
+            fixedUrl +
+            "&ip=" +
+            res.data.IPv4 +
+            "&device=" +
+            browserName
+        )
+        .then(function (response) {
+          console.log("console ini2: " + response.data.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+    getIPAddress();
+  }, []);
+
 
   return (
     <div>

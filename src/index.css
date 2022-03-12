@@ -95,7 +95,7 @@ code {
   /* margin-left: 35px;
   margin-right: 35px; */
   object-fit: cover;
-  width: 1850px;
+  width: 100%;
   height: 600px;
   border: 1px solid #ffffff;
   border-radius: 0px;
@@ -243,9 +243,9 @@ code {
   display: inline-block;
 }
 .blog-card .details .author:before {
-  font-family: FontAwesome;
+  font-family: Font Awesome 5 free;
   margin-right: 10px;
-  content: "\f007";
+  content: "\e461";
 }
 .blog-card .details .date:before {
   font-family: FontAwesome;
@@ -417,11 +417,11 @@ code {
 
   .section-header {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center !important;
+    align-items: center !important;
     padding: 2px;
     font-family: "Roboto", sans-serif;
-    text-align: center;
+    text-align: center !important;
     color: black;
   }
 
@@ -932,6 +932,30 @@ div#root {
 .text-logo {
   transform: translateY(30%);
 }
-.dropdown-menu{
+.dropdown-menu {
   background-color: #212529 !important;
+}
+.border-meta {
+  border-top: 1px solid #ebebef;
+  border-bottom: 1px solid #ebebef;
+  padding: 12px 0px;
+}
+.border-meta a {
+  color: #072948;
+}
+.card-body .border-meta a.read-more-size {
+  font-size: 0.6rem;
+  margin-right: 15px;
+}
+.border-meta .fa-calendar-days:before {
+  margin-right: 10px;
+}
+.border-meta .fa-user:before {
+  margin-right: 10px;
+}
+.border-meta .fa-eye:before {
+  margin-right: 5px;
+}
+.border-meta .fa-tags:before {
+  margin-right: 5px;
 }

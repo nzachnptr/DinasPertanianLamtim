@@ -43,10 +43,54 @@
   background: black;
 }
 
-.container-home-main {
+/* .container-home-main {
   margin: 55px 135px;
+} */
+
+@media (min-width: 1082px) {
+  .container-home-main {
+    margin: 55px 135px;
+  }
+}
+@media (max-width: 1081px) {
+  .row.mb-5 {
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-top: 3rem;
+  }
+  .emailaddress.col {
+    align-items: center;
+    padding: 0px;
+  }
 }
 
+@media (max-width: 1420px) {
+  .emailaddress.col {
+    padding: 0px !important;
+}
+}
+@media (max-width: 1002px) {
+  .emailaddress.col {
+    display: none;
+  }
+}
+@media (max-width: 745px) {
+  h1.text-logo {
+    font-size: 1.5rem;
+    align-self: center;
+  }
+
+  .row.content-home {
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-top: 3rem;
+  }
+  .row.content-gallery {
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-top: 3rem;
+  }
+}
 .title-home-news {
   border-bottom: 1px solid #c4c4c4;
   padding-bottom: 20px;

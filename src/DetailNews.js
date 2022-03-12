@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
-import ListGroup from "react-bootstrap/ListGroup";
-import { Badge } from "react-bootstrap";
-import { browserName, browserVersion } from "react-device-detect";
+import { browserName } from "react-device-detect";
 
 const DetailNews = () => {
   const [DataResponse, setDataResponses] = useState([]);
@@ -12,7 +10,7 @@ const DetailNews = () => {
   let url = window.location.href;
   let fixedUrl = url.split("/").pop();
   console.log("fixedUrl", fixedUrl);
-  const [ip, setIP] = useState('');
+  const [ip, setIP] = useState("");
   function getData() {
     setDataResponses(null);
     axios
@@ -30,23 +28,29 @@ const DetailNews = () => {
   }, [axios]);
 
   useEffect(() => {
-    
     const getIPAddress = async () => {
-		const res = await axios.get('https://geolocation-db.com/json/')
-		// console.log('IP' + res.data);
-		// setIP(res.data.IPv4)
+      const res = await axios.get("https://geolocation-db.com/json/");
+      // console.log('IP' + res.data);
+      // setIP(res.data.IPv4)
 
-		axios.post("http://adminmesuji.embuncode.com/api/news/hit?news_id="+ fixedUrl +"&ip="+ res.data.IPv4 +"&device=" + browserName)
-		.then(function (response) {
-			console.log("console ini2: " + response.data.data);
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
-	}
-	getIPAddress()
+      axios
+        .post(
+          "http://adminmesuji.embuncode.com/api/news/hit?news_id=" +
+            fixedUrl +
+            "&ip=" +
+            res.data.IPv4 +
+            "&device=" +
+            browserName
+        )
+        .then(function (response) {
+          console.log("console ini2: " + response.data.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+    getIPAddress();
   }, []);
-  
 
   return (
     <Fragment>
@@ -87,32 +91,12 @@ const DetailNews = () => {
                         <a href="#">{DataResponse.news_category_id}</a>
                       </li>
                     </ul>
-                    {/* <p>Jumlah Pembaca</p>
+                    <p>Jumlah Dibaca</p>
                     <ul>
-                      <ListGroup as="ol" numbered>
-                        {console.log("console read:" + dataRead)}
-                        {dataRead &&
-                          dataRead.map((item, index) => {
-                            return (
-                              <>
-                                <ListGroup.Item
-                                  as="li"
-                                  className="d-flex justify-content-between align-items-start"
-                                >
-                                  <div className="ms-2 me-auto">
-                                    <div className="fw-bold">
-                                      why u ga muncul haaa
-                                    </div>
-                                  </div>
-                                  <Badge variant="primary" pill>
-                                    2
-                                  </Badge>
-                                </ListGroup.Item>
-                              </>
-                            );
-                          })}
-                      </ListGroup>
-                    </ul> */}
+                      <li>
+                        <a href="#">{ DataResponse.total_hit}x dibaca</a>
+                      </li>
+                    </ul>
                   </div>
                 </div>
                 <div className="col-md-10 col-lg-7 offset-md-1 offset-lg-0">

@@ -22,7 +22,6 @@
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.34",
     "moment-with-locales-es6": "^1.0.1",
-    "pspdfkit": "^2022.1.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",
     "react-device-detect": "^2.1.2",

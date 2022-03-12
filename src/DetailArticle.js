@@ -32,14 +32,7 @@ const DetailArticle = () => {
       // setIP(res.data.IPv4)
 
       axios
-        .post(
-          "http://adminmesuji.embuncode.com/api/article/hit?artikel_id=" +
-            fixedUrl +
-            "&ip=" +
-            res.data.IPv4 +
-            "&device=" +
-            browserName
-        )
+        .post("http://adminmesuji.embuncode.com/api/news/hit?artikel_id=" + fixedUrl + "&ip=" + res.data.IPv4 + "&device=" + browserName)
         .then(function (response) {
           console.log("console ini2: " + response.data.data);
         })
@@ -56,10 +49,7 @@ const DetailArticle = () => {
         <div>
           {console.log(DataResponse)}
           <meta charSet="utf-8" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-          />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
           <title>{DataResponse.title}</title>
           <section className="article-dual-column">
             <div className="container">
@@ -73,10 +63,7 @@ const DetailArticle = () => {
                       <span> | </span>
                       <span className="date"> {DataResponse.created_at}</span>
                     </p>
-                    <img
-                      className="img-fluid"
-                      src={DataResponse.image_file_data}
-                    />
+                    <img className="img-fluid" src={DataResponse.image_file_data} />
                   </div>
                 </div>
               </div>
@@ -87,6 +74,12 @@ const DetailArticle = () => {
                     <ul>
                       <li>
                         <a href="#">{DataResponse.news_category_id}</a>
+                      </li>
+                    </ul>
+                    <p>Jumlah Dibaca</p>
+                    <ul>
+                      <li>
+                        <a href="#">{DataResponse.total_hit}x dibaca</a>
                       </li>
                     </ul>
                   </div>
