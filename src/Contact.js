@@ -60,7 +60,8 @@ const Contact = () => {
           <div className="col-md-12">
             <h2 className="text-center contact">Kontak Kami</h2>
             <div className="social-icons">
-
+              <div className="margin-contact">
+                
               <a href={DataResponse.email} className="container-icon">
                 <MdEmail size={35} className="icon-c" />
               </a>
@@ -73,6 +74,8 @@ const Contact = () => {
               <a href={DataResponse.instagram} className="container-icon">
                 <AiFillInstagram size={35} className="icon-c" />
               </a>
+</div>
+            </div>
               <section className="map-clean">
                 <div className="container">
                   <div className="intro">
@@ -90,7 +93,6 @@ const Contact = () => {
                   height={450}
                 />
               </section>
-            </div>
           </div>
         </div>
       </div>
